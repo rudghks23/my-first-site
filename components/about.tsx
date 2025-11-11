@@ -238,6 +238,23 @@ export function About() {
             </p>
           </div>
 
+          {/* AI 기반 부동산 수요 예측 항목 추가 */}
+          <div className="mb-16 text-center">
+            <h3 className="text-2xl font-bold text-foreground mb-4">{aboutInfo.aiPrediction.title}</h3>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              {aboutInfo.aiPrediction.description}
+            </p>
+            <p className="text-md text-muted-foreground max-w-3xl mx-auto leading-relaxed mt-4">
+              <strong>모델 사용:</strong> {aboutInfo.aiPrediction.modelUsed}
+            </p>
+            <p className="text-md text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              <strong>데이터 출처:</strong> {aboutInfo.aiPrediction.dataSource}
+            </p>
+            <p className="text-md text-muted-foreground max-w-3xl mx-auto leading-relaxed mt-4">
+              <strong>예측 결과:</strong> {aboutInfo.aiPrediction.result}
+            </p>
+          </div>
+          
           {/* 경험 카드 (경력/학력/자격증 등) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {/* 경험 카드들 */}
