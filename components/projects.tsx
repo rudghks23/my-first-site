@@ -8,6 +8,7 @@ import { EditableMedia } from "@/components/editable/editable-media"
 import { EditableBackground } from "@/components/editable/editable-background"
 import { useInlineEditor } from "@/contexts/inline-editor-context"
 import { COMMON_STYLES } from "@/lib/constants"
+import PricePredictionSimulator from './PricePredictionSimulator'; // PricePredictionSimulator 컴포넌트 경로 확인
 
 export function Projects() {
   const { getData, saveData, isEditMode, saveToFile } = useInlineEditor()
@@ -25,6 +26,23 @@ export function Projects() {
     },
     projects: [] as Array<{ image: string; video?: string; title: string; description: string }>
   }
+
+   return (
+    <div>
+      <h2>프로젝트</h2>
+      <p>부동산 관련 프로젝트</p>
+
+      {/* 부동산 가격 예측 시뮬레이터 추가 */}
+      <PricePredictionSimulator />  {/* 여기서 시뮬레이터 컴포넌트 추가 */}
+
+      {/* 나머지 프로젝트 항목들 */}
+      <div>
+        <h3>기타 프로젝트</h3>
+        <p>기타 부동산 관련 프로젝트나 다른 작업들</p>
+      </div>
+    </div>
+  );
+}
 
   const [projectsInfo, setProjectsInfo] = useState(defaultInfo)
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
