@@ -18,7 +18,7 @@ export function Projects() {
     initialDisplay: 6,
     loadMoreCount: 3,
     background: {"image":"","video":"","color":"","opacity":0.1},
-    projects: [{"image":"/uploads/project-1763354347146-1763354347213.png","video":"","title":"경매물건 권리분석 보고서 작성","description":"file:///C:/Users/rudgh/Desktop/32222672%20%EC%98%A4%EA%B2%BD%ED%99%98%20%EB%B6%80%EB%8F%99%EC%82%B0%EA%B2%BD%EB%A7%A4%20%EA%B6%8C%EB%A6%AC%EB%B6%84%EC%84%9D%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf"},{"image":"/uploads/project-1763354399344-1763354399384.png","video":"","title":"청계천 복원 사업 분석 및 연구","description":"file:///C:/Users/rudgh/Desktop/%EB%8F%84%EC%8B%9C%EC%9E%AC%EC%83%9D(%EC%B2%AD%EA%B3%84%EC%B2%9C%20%EB%B3%B5%EC%9B%90%EC%82%AC%EC%97%85%20%EB%B0%8F%202050%20%EB%A7%88%EC%8A%A4%ED%84%B0%ED%94%8C%EB%9E%9C).pdf"}] as Array<{ image: string; video?: string; title: string; description: string }>
+    projects: [{"image":"/uploads/project-0-1763356468336.png","video":"","title":"경매물건 권리분석 보고서 작성","description":"file:///C:/Users/rudgh/Desktop/32222672%20%EC%98%A4%EA%B2%BD%ED%99%98%20%EB%B6%80%EB%8F%99%EC%82%B0%EA%B2%BD%EB%A7%A4%20%EA%B6%8C%EB%A6%AC%EB%B6%84%EC%84%9D%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf"},{"image":"/uploads/project-1763354399344-1763354399384.png","video":"","title":"청계천 복원 사업 분석 및 연구","description":"file:///C:/Users/rudgh/Desktop/%EB%8F%84%EC%8B%9C%EC%9E%AC%EC%83%9D(%EC%B2%AD%EA%B3%84%EC%B2%9C%20%EB%B3%B5%EC%9B%90%EC%82%AC%EC%97%85%20%EB%B0%8F%202050%20%EB%A7%88%EC%8A%A4%ED%84%B0%ED%94%8C%EB%9E%9C).pdf"}] as Array<{ image: string; video?: string; title: string; description: string; pdfUrl?: string }>
   }
 
   const [projectsInfo, setProjectsInfo] = useState(defaultInfo)
@@ -292,6 +292,19 @@ export function Projects() {
                           multiline
                         />
                       </p>
+
+                    {/* ✅ PDF 링크가 있을 때만 다운로드 버튼 표시 */}
+                      {project.pdfUrl && (
+                        <a
+                          href={project.pdfUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center mt-2 text-sm text-primary hover:underline"
+                          onClick={(e) => e.stopPropagation()} // 카드 클릭 줌 방지
+                        >
+                          📄 보고서 다운로드
+                        </a>
+                      )}
                     </div>
                   </div>
                 )
@@ -537,7 +550,23 @@ export function Projects() {
                 />
               </div>
             </div>
-            
+              {/* ✅ PDF 링크 입력 (선택 사항) */}
+              <div className="mt-4">
+                <label className="text-sm font-medium mb-1 block">
+                  PDF 링크 (선택)
+                </label>
+                <input
+                  type="text"
+                  value={newProject.pdfUrl}
+                  onChange={(e) => setNewProject({ ...newProject, pdfUrl: e.target.value })}
+                  placeholder="예: /pdfs/acro-vista-report.pdf 또는 https://..."
+                  className="w-full px-3 py-2 border rounded-lg bg-background"
+                />
+                <p className="mt-1 text-xs text-muted-foreground">
+                  public/pdfs 폴더에 올린 경우 <code>/pdfs/파일이름.pdf</code> 만 적어도 됩니다.
+                </p>
+              </div>
+
             <div className="mt-6 flex gap-2">
               <button
                 onClick={async () => {
@@ -548,7 +577,8 @@ export function Projects() {
                       image: isVideo ? '' : newProject.image,
                       video: isVideo ? newProject.image : '',
                       title: newProject.title,
-                      description: newProject.description
+                      description: newProject.description,
+                      pdfUrl: newProject.pdfUrl
                     }
                     const updatedProjects = [...projectsInfo.projects, projectData]
                     const updatedInfo = {...projectsInfo, projects: updatedProjects}
