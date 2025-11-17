@@ -462,7 +462,7 @@ export function Projects() {
                       <input
                         id="project-upload"
                         type="file"
-                        accept="image/*,video/mp4,video/webm"
+                        accept="image/*,video/mp4,video/webm,application/pdf"
                         onChange={async (e) => {
                           const file = e.target.files?.[0]
                           if (!file) return
