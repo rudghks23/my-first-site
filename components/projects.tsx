@@ -17,13 +17,8 @@ export function Projects() {
     subtitle: "프로젝트",
     initialDisplay: 6,
     loadMoreCount: 3,
-    background: {
-      image: "",
-      video: "",
-      color: "",
-      opacity: 0.1
-    },
-    projects: [] as Array<{ image: string; video?: string; title: string; description: string }>
+    background: {"image":"","video":"","color":"","opacity":0.1},
+    projects: [{"image":"/uploads/project-1763354347146-1763354347213.png","video":"","title":"경매물건 권리분석 보고서 작성","description":"file:///C:/Users/rudgh/Desktop/32222672%20%EC%98%A4%EA%B2%BD%ED%99%98%20%EB%B6%80%EB%8F%99%EC%82%B0%EA%B2%BD%EB%A7%A4%20%EA%B6%8C%EB%A6%AC%EB%B6%84%EC%84%9D%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf"},{"image":"/uploads/project-1763354399344-1763354399384.png","video":"","title":"청계천 복원 사업 분석 및 연구","description":"file:///C:/Users/rudgh/Desktop/%EB%8F%84%EC%8B%9C%EC%9E%AC%EC%83%9D(%EC%B2%AD%EA%B3%84%EC%B2%9C%20%EB%B3%B5%EC%9B%90%EC%82%AC%EC%97%85%20%EB%B0%8F%202050%20%EB%A7%88%EC%8A%A4%ED%84%B0%ED%94%8C%EB%9E%9C).pdf"}] as Array<{ image: string; video?: string; title: string; description: string }>
   }
 
   const [projectsInfo, setProjectsInfo] = useState(defaultInfo)
@@ -35,7 +30,8 @@ export function Projects() {
   const [newProject, setNewProject] = useState({
     image: "",
     title: "",
-    description: ""
+    description: "",
+    pdfUrl: ""
   })
   const [backgroundData, setBackgroundData] = useState(
     defaultInfo.background
@@ -418,7 +414,7 @@ export function Projects() {
                       console.error('Failed to delete uploaded file:', error)
                     }
                   }
-                  setNewProject({ image: "", title: "", description: "" })
+                  setNewProject({ image: "", title: "", description: "", pdfUrl: "" })
                   setShowProjectModal(false)
                 }}
                 className="p-1 hover:bg-muted rounded-lg"
@@ -565,7 +561,7 @@ export function Projects() {
                       alert('✅ 프로젝트가 추가되고 파일에 저장되었습니다!')
                     }
                     
-                    setNewProject({ image: "", title: "", description: "" })
+                    setNewProject({ image: "", title: "", description: "", pdfUrl: "" })
                     setShowProjectModal(false)
                   } else {
                     alert('제목과 설명을 입력해주세요')
@@ -589,7 +585,7 @@ export function Projects() {
                       console.error('Failed to delete uploaded file:', error)
                     }
                   }
-                  setNewProject({ image: "", title: "", description: "" })
+                  setNewProject({ image: "", title: "", description: "", pdfUrl: "" })
                   setShowProjectModal(false)
                 }}
                 className="flex-1 py-2 border rounded-lg hover:bg-muted"
