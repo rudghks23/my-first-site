@@ -36,7 +36,7 @@ export function Hero() {
   const defaultSocialLinks = [{"name":"Instagram","icon":"instagram","url":"https://instagram.com/username"},{"name":"YouTube","icon":"youtube","url":"https://youtube.com/@username"}]
   
   const defaultInfo = {
-    greeting: "안녕하세요,",
+    greeting: "안녕하세요",
     name: "오경환",
     title: "단국대학교 도시계획부동산학부 재학생입니다.",
     description: "부동산 주전공으로 부동산에 대해서 심화적으로 학습중입니다.",
