@@ -24,7 +24,7 @@ export function Footer() {
   const defaultInfo = {
     showFooter: true,
     name: "당신의 이름",
-    description: "모든 일에 열정을 다하는 오경환입니다.",
+    description: "오경환",
     showQuickLinks: true,
     quickLinksTitle: "빠른 링크",
     showContactInfo: true,
