@@ -8,6 +8,7 @@ import { EditableText } from "@/components/editable/editable-text"
 import { EditableMedia } from "@/components/editable/editable-media"
 import { EditableBackground } from "@/components/editable/editable-background"
 import { useInlineEditor } from "@/contexts/inline-editor-context"
+const ROLE_TAGS = ["도시분석가", "상업부동산 리서처", "데이터 기반 투자전략"]
 
 // 사용 가능한 아이콘 정의
 const AVAILABLE_ICONS = {
@@ -173,66 +174,81 @@ export function Hero() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* 왼쪽: 텍스트 내용 */}
-            <div className="order-2 md:order-1">
-              <h2 className="text-3xl font-bold mb-2">
-                <EditableText
-                  value={heroInfo.greeting}
-                  onChange={(value) => updateHeroInfo('greeting', value)}
-                  storageKey="hero-greeting"
-                />
-              </h2>
-              <h1 className="text-5xl md:text-6xl font-bold mb-4">
-                <EditableText
-                  value={heroInfo.name}
-                  onChange={(value) => updateHeroInfo('name', value)}
-                  storageKey="hero-name"
-                />
+            <div className="order-2 md:order-1 max-w-xl space-y-6">
+              {/* 1) 역할 태그 줄 */}
+              <div className="flex flex-wrap gap-2">
+                {ROLE_TAGS.map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-3 py-1 rounded-full text-xs font-semibold bg-muted text-foreground/80 border border-border hover:-translate-y-0.5 hover:shadow-sm transition"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {/* 2) 메인 헤드라인 – 이름 포함 */}
+              <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-foreground">
+                부동산의 미래를 구축하는 예비 전문가 오경환 입니다.
               </h1>
-              <p className="text-2xl mb-4 text-muted-foreground">
+
+              {/* 3) 서브카피 – 기존 description 재활용 */}
+              <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
                 <EditableText
-                  value={heroInfo.title}
-                  onChange={(value) => updateHeroInfo('title', value)}
-                  storageKey="hero-title"
-                />
-              </p>
-              <p className="text-lg mb-8 text-muted-foreground">
-                <EditableText
-                  value={heroInfo.description}
-                  onChange={(value) => updateHeroInfo('description', value)}
+                  value={
+                    heroInfo.description ||
+                    "경매·상업시설·도시계획 데이터를 결합해, 숫자와 현장이 함께 보이는 인사이트를 만듭니다. 실제 프로젝트와 리포트를 통해 지속 가능한 도시와 투자 전략을 고민합니다."
+                  }
+                  onChange={(value) => updateHeroInfo("description", value)}
                   storageKey="hero-description"
                   multiline
                 />
               </p>
 
-              {/* 프로젝트 보기 버튼 */}
-              <div className="mb-8">
-                {isEditMode ? (
-                  <div className="flex flex-col gap-2 w-fit">
-                    <input
-                      type="text"
-                      value={heroInfo.projectButton}
-                      onChange={(e) => updateHeroInfo('projectButton', e.target.value)}
-                      placeholder="프로젝트 버튼 텍스트"
-                      className="px-3 py-2 border rounded-lg bg-background text-sm text-center"
-                    />
-                    <Button onClick={scrollToProjects} size="lg" disabled className="justify-center">
-                      {heroInfo.projectButton || "프로젝트 보기"}
-                    </Button>
-                  </div>
-                ) : (
-                  heroInfo.projectButton && (
-                    <Button onClick={scrollToProjects} size="lg" className="justify-center">
-                      {heroInfo.projectButton}
-                    </Button>
-                  )
-                )}
+              {/* 4) CTA 버튼 두 개 */}
+              <div className="flex flex-wrap gap-3">
+                {/* 메인: 프로젝트 바로 보기 */}
+                <Button
+                  onClick={scrollToProjects}
+                  size="lg"
+                  className="justify-center rounded-full"
+                >
+                  {heroInfo.projectButton || "프로젝트 바로 보기"}
+                </Button>
+
+                {/* 서브: 분석 리포트 모아보기 → reports 섹션으로 스크롤 */}
+                <Button
+                  onClick={() => {
+                    const el = document.querySelector("#reports")
+                    if (el) el.scrollIntoView({ behavior: "smooth" })
+                  }}
+                  size="lg"
+                  variant="outline"
+                  className="justify-center rounded-full"
+                >
+                  분석 리포트 모아보기
+                </Button>
               </div>
 
-              {/* 소셜 링크 */}
-              <div className="flex gap-4 flex-wrap items-center">
+              {/* 5) “지금 하는 일” 요약 카드 2개 */}
+              <div className="grid grid-cols-2 gap-3 text-xs">
+                <div className="rounded-2xl border border-border bg-background/80 px-4 py-3 shadow-sm">
+                  <p className="font-semibold text-foreground">현재 관심 키워드</p>
+                  <p className="mt-1 text-muted-foreground">
+                    도시계획 · 건설 · 시공 · 시행
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-border bg-background/80 px-4 py-3 shadow-sm">
+                  <p className="font-semibold text-foreground">최근 프로젝트</p>
+                  <p className="mt-1 text-muted-foreground">
+                    청계천 도시재생 사업 심층분석 · 상가, 주거용 경매 권리분석 및 수익성 실현 방법 연구
+                  </p>
+                </div>
+              </div>
+
+              {/* 6) 소셜 링크 – 기존 코드 그대로 유지 */}
+              <div className="flex gap-4 flex-wrap items-center pt-2">
                 {socialLinks.map((link, index) => renderSocialIcon(link, index))}
-                
-                {/* 편집 버튼 */}
                 {isEditMode && (
                   <button
                     onClick={() => setShowSocialEditor(true)}

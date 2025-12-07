@@ -92,6 +92,39 @@ const SKILL_ICONS = {
   users: Users,
 }
 
+// 학력/경험 타임라인 데이터
+const TIMELINE_ITEMS = [
+  {
+    period: '  2010.03~2016.02',
+    title: '우림초등학교',
+    desc: '초등학교 졸업',
+  },
+  {
+    period: '  2016.03 ~ 2019.02',
+    title: '서전주중학교',
+    desc: '중학교 졸업',
+  },
+  {
+    period: '  2019.03 ~ 2022.02',
+    title: '영생고등학교',
+    desc: '고등학교 졸업',
+  },
+  {
+    period: '  2022.03 ~ 2023.07',
+    title: '단국대학교 도시계획부동산학부 입학',
+    desc: '도시에 대한 전반적인 관심을 가지고 우리 대학에 신입학하여 현재까지 도시와 부동산에 대한 학습중',
+  },
+  {
+    period: '  2023.08 ~ 2025.02',
+    title: '제 32 보병사단 엘리트 운전병 병장 만기 전역',
+    desc: '군대에서 공동체 생활을 경험하고, 작은 사회를 경험하며, 바람직한 공동체 의식과 맟은 일에 대한 책임을 지는 태도를 가지게 되었음',
+  },
+  {
+    period: '  2025.03 ~ 현재',
+    title: '단국대학교 도시계획부동산학부 복학',
+    desc: '군 전역 후 복학하여 도시와 부동산에 대해서 심화적인 학습중',
+  },
+]
 export function About() {
   const { getData, saveData, isEditMode, saveToFile } = useInlineEditor()
   // 기본 데이터
@@ -299,6 +332,30 @@ export function About() {
                 </CardContent>
               </Card>
             )}
+          </div>
+
+          {/* 학력·경험 타임라인 */}
+          <div className="max-w-3xl mx-auto mb-16">
+            <h3 className="text-2xl font-bold text-foreground mb-6 text-center">
+              타임라인
+            </h3>
+            <div className="relative border-l border-muted-foreground/20 pl-6">
+              {TIMELINE_ITEMS.map((item, index) => (
+                <div key={index} className="relative mb-6">
+                  {/* 세로줄 위 동그라미 */}
+                  <span className="absolute -left-2.5 w-4 h-4 rounded-full border-2 border-primary bg-background" />
+
+                  {/* 텍스트 내용 */}
+                  <p className="text-xs text-muted-foreground">{item.period}</p>
+                  <h4 className="text-sm font-semibold text-foreground">
+                    {item.title}
+                  </h4>
+                  <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* 핵심 역량 */}
